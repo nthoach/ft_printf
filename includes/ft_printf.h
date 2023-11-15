@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:35:25 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/14 20:17:15 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:45:17 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define SPECIFIER "cspdiuxX%"
+# define FLAGS "-0.# +"
+
 typedef struct s_printf
 {
 	va_list	args;
-	int		wdt;
-	int		prc;
-	int		zero;
-	int		pnt;
-	int		dash;
+	char	*str_ip;
+	char	flags;
+	int		wdth;
+	int		precn;
+	char	specf;
+	int		len_th;
+	int		poi_nt;
+	int		das_h;
 	int		tl;
 	int		sign;
 	int		is_zero;

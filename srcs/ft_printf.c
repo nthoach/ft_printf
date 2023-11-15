@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:29:46 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/14 20:31:27 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:29:19 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,28 @@ t_print	*ft_init_tab(t_print *tab)
 	return (tab);
 }
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(const char *str_ip, ...)
 {
+	va_list	args;
 	int		i;
-	int		output;
+	int		printed_byte;
 	t_print	*tab;
 
 	tab = (t_print *)malloc(sizeof(t_print));
 	if (!tab)
 		return (-1);
 	ft_init_tab(tab);
-	va_start(tab->args, format);
+	va_start(args, str_ip);
 	i = -1;
-	output = 0;
-	while (format[++i])
+	printed_byte = 0;
+	while (str_ip[++i])
 	{
-		if (*format == '%')
-			i = ft_evaluate_format(tab, format, i + 1);
+		if (str_ip[i] == '%')
+			i = ft_evaluate_format(tab, str_ip, i + 1);
 		else
-			output += write(1, &format[i], 1);
+			printed_byte += write(1, &str_ip[i], 1);
 	}
+	va_arg(args, )
 	va_end(tab->args);
 	output += tab->tl;
 	free(tab);
