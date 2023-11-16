@@ -6,89 +6,57 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:29:46 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/16 14:06:14 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:00:09 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-int	ft_putptr(uintptr_t n)
-{
-	int	len_ptr;
+// int	ft_put_char(int c)
+// {
+// 	write(1, &c, 1);
+// 	return (1);
+// }
 
-	len_ptr = 0;
-	if (n > 16)
-	{
-		len_ptr += ft_putptr(n / 16);
-		len_ptr += ft_putputr(n % 16);
-	}
-	else
-	{
-		if (n <= 9)
-			ft_putchar_fd((n + '0'), 1);
-		else
-			ft_putchar_fd((n - 10 + 'a'), 1);
-	}
-}
+// int	ft_put_str(char *str)
+// {
+// 	int	len_str;
 
-int	ft_print_char(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
+// 	if (!str)
+// 		return (0);
+// 	len_str = 0;
+// 	while (*str)
+// 		len_str += write(1, str, 1);
+// 	return (len_str);
+// }
 
-int	ft_print_str(char *str)
-{
-	if (!str)
-	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
-	}
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
-}
+// int	ft_put_hex(uintptr_t n, char format)
+// {
+// 	int	len_ptr;
 
-int	ft_print_ptr(unsigned long long ptr)
-{
-	int	printed_byte;
+// 	len_ptr = 0;
+// 	if (n > 15)
+// 	{
+// 		len_ptr += ft_putptr(n / 16);
+// 		len_ptr += ft_putptr(n % 16);
+// 	}
+// 	else
+// 	{
+// 		if (n <= 9)
+// 			ft_put_char(n + '0');
+// 		else
+// 		{
+// 			if (format == 'x')
+// 				ft_put_char(n - 10 + 'a');
+// 			else if (format == 'X')
+// 				ft_put_char((n - 10 + 'A'), 1);
+// 		}
+// 		len_ptr = 1;
+// 	}
+// 	return (len_ptr);
+// }
 
-	printed_byte = 0;
-	printed_byte += write(1, "0x", 2);
-	if (!ptr)
-		printed_byte += write(1, "0", 1);
-	else
-	{
-		printed_byte += ft_putptr(ptr);		
-	}
-}
-
-int	ft_print_nbr(int n)
-{
-	int		len_n;
-	char	*str_n;
-
-	str_n = ft_itoa(n);
-	len_n = ft_print_str(str_n);
-	free(str_n);
-	return (len_n);
-}
-
-int ft_print_usg(unsigned int u)
-{
-	
-}
-
-int ft_print_hex(unsigned int i,  char format_type)
-{
-	
-}
-
-int ft_print_per()
-{
-	
-}
-
-static int ft_printformat(va_list args, const char format_type)
+static int	ft_printformat(va_list args, const char format_type)
 {
 	int	printed_byte;
 
