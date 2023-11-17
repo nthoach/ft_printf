@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:48:20 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/17 15:35:30 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:43:03 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_print_char(int c)
 {
-	c = (unsigned char)c;
 	return (write(1, &c, 1));
 }
 

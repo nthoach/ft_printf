@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:29:46 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/17 15:22:37 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:07:07 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			n_p += ft_print_format(ap, s[i + 1]);
 			i++;
+			n_p += ft_print_format(ap, s[i]);
 		}
 		else
 			n_p += ft_print_char(s[i]);
