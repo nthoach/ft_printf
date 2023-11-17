@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:35:25 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/15 15:45:17 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:47:39 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define SPECIFIER "cspdiuxX%"
 # define FLAGS "-0.# +"
-
+/*
 typedef struct s_printf
 {
 	va_list	args;
@@ -37,8 +37,13 @@ typedef struct s_printf
 	int		perc;
 	int		sp;
 }	t_printf;
+*/
 
-char	*ft_function1(char *s, int i);
-void	ft_function2(int a, char b);
+int	ft_print_char(int c);
+int	ft_print_str(char *str);
+int	ft_print_hex(uintptr_t n, char format);
+int	ft_print_ptr(unsigned long long ptr);
+int	ft_print_nbr(int n);
+int	ft_print_unsigned(unsigned int n);
 
 #endif

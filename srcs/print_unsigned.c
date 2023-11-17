@@ -48,7 +48,7 @@ static	char	*ft_uitoa(unsigned int n)
 	return (str);
 }
 
-int	ft_print_usgn(unsigned int n)
+int	ft_print_unsigned(unsigned int n)
 {
 	int		printed_byte;
 	char	*str;

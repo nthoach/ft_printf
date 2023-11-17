@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_formats.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:48:20 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/16 15:15:51 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:40:58 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_print_str(char *str)
 
 	if (!str)
 	{
-		ft_put_str("(null)");
+		write(1, "(null)", 6);
 		return (6);
 	}
 	len_str = 0;
