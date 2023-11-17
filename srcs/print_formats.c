@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   print_formats.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:48:20 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/16 18:40:58 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:35:30 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 
 int	ft_print_char(int c)
 {
-	write(1, &c, 1);
-	return (1);
+	c = (unsigned char)c;
+	return (write(1, &c, 1));
 }
 
 int	ft_print_str(char *str)
@@ -29,7 +29,10 @@ int	ft_print_str(char *str)
 	}
 	len_str = 0;
 	while (*str)
+	{
 		len_str += write(1, str, 1);
+		str++;
+	}
 	return (len_str);
 }
 
@@ -40,36 +43,38 @@ int	ft_print_hex(uintptr_t n, char format)
 	len = 0;
 	if (n > 15)
 	{
-		len += ft_put_hex(n / 16, format);
-		len += ft_put_hex(n % 16, format);
+		len += ft_print_hex(n / 16, format);
+		len += ft_print_hex(n % 16, format);
 	}
 	else
 	{
 		if (n <= 9)
-			ft_put_char(n + '0');
+			ft_print_char(n + '0');
 		else
 		{
 			if (format == 'x')
-				len += ft_put_char(n - 10 + 'a');
+				ft_print_char(n - 10 + 'a');
 			else if (format == 'X')
-				len += ft_put_char((n - 10 + 'A'));
+				ft_print_char((n - 10 + 'A'));
 		}
+		len = 1;
 	}
 	return (len);
 }
 
 int	ft_print_ptr(unsigned long long ptr)
 {
-	int	printed_byte;
+	int	n_p;
 
-	printed_byte = 0;
-	printed_byte += write(1, "0x", 2);
+	n_p = 0;
+	n_p += write(1, "0x", 2);
 	if (!ptr)
-		printed_byte += write(1, "0", 1);
+		n_p += write(1, "0", 1);
 	else
 	{
-		printed_byte += ft_put_hex(ptr, 'x');
+		n_p += ft_print_hex(ptr, 'x');
 	}
+	return (n_p);
 }
 
 int	ft_print_nbr(int n)

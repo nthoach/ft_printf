@@ -3,59 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:29:46 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/16 18:58:29 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:22:37 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
+#include <stdio.h>
 
-static int	ft_printformat(va_list args, const char format_type)
+static int	ft_print_format(va_list args, const char chr)
 {
-	int	printed_byte;
+	int	n_p;
 
-	printed_byte = 0;
-	if (format_type == 'c')
-		printed_byte += ft_print_char(va_arg(args, int));
-	else if (format_type == 's')
-		printed_byte += ft_print_str(va_arg(args, char *));
-	else if (format_type == 'p')
-		printed_byte += ft_print_ptr(va_arg(args, unsigned long long));
-	else if (format_type == 'd' || format_type == 'i' )
-		printed_byte += ft_print_nbr(va_arg(args, int));
-	else if (format_type == 'u')
-		printed_byte += ft_print_unsigned(va_arg(args, unsigned int));
-	else if (format_type == 'x' || format_type == 'X')
-		printed_byte += ft_print_hex(va_arg(args, unsigned int), format_type);
-	else if (format_type == '%')
-		printed_byte += ft_print_char('%');
-	return (printed_byte);
+	n_p = 0;
+	if (chr == 'c')
+		n_p += ft_print_char(va_arg(args, int));
+	else if (chr == 's')
+		n_p += ft_print_str(va_arg(args, char *));
+	else if (chr == 'p')
+		n_p += ft_print_ptr(va_arg(args, unsigned long long));
+	else if (chr == 'd' || chr == 'i' )
+		n_p += ft_print_nbr(va_arg(args, int));
+	else if (chr == 'u')
+		n_p += ft_print_unsigned(va_arg(args, unsigned int));
+	else if (chr == 'x' || chr == 'X')
+		n_p += ft_print_hex(va_arg(args, unsigned int), chr);
+	else if (chr == '%')
+		n_p += ft_print_char('%');
+	return (n_p);
 }
 
-int	ft_printf(const char *str_ip, ...)
+int	ft_printf(const char *s, ...)
 {
-	va_list	args;
+	va_list	ap;
 	int		i;
-	int		printed_byte;
+	int		n_p;
 
-	if (!str || !*str)
+	if (!s || !*s)
 		return (0);
-	va_start(args, str_ip);
+	va_start(ap, s);
 	i = 0;
-	printed_byte = 0;
-	while (str_ip[i])
+	n_p = 0;
+	while (s[i])
 	{
-		if (str_ip[i] == '%')
+		if (s[i] == '%')
 		{
-			printed_byte += ft_printformat(args, str_ip[i + 1]);
+			n_p += ft_print_format(ap, s[i + 1]);
 			i++;
 		}
 		else
-			printed_byte += ft_printchar(str_ip[i]);
+			n_p += ft_print_char(s[i]);
 		i++;
 	}
-	va_end(args);
-	return (printed_byte);
+	va_end(ap);
+	return (n_p);
 }

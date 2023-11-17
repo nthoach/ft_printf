@@ -12,13 +12,15 @@
 
 #include "ft_printf.h"
 
-static int	ft_len(unsigned int n)
+static int	ft_len(int long n)
 {
 	int	len;
 
 	if (n == 0)
 		return (1);
 	len = 0;
+	if (n < 0)
+		len = 1;
 	while (n)
 	{
 		n = n / 10;
@@ -27,35 +29,30 @@ static int	ft_len(unsigned int n)
 	return (len);
 }
 
-static	char	*ft_uitoa(unsigned int n)
+char	*ft_itoa(int n)
 {
 	char		*str;
 	int			len;
+	int long	temp_n;
 
-	len = ft_len(n);
+	temp_n = n;
+	len = ft_len(temp_n);
 	str = (char *)malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	str[len] = '\0';
+	if (n < 0)
+	{
+		str[0] = '-';
+		temp_n *= -1;
+	}
 	if (n == 0)
 		str[0] = '0';
-	while (n && len >= 0)
+	while (temp_n && len >= 0)
 	{
 		len--;
-		str[len] = '0' + n % 10;
-		n /= 10;
+		str[len] = '0' + temp_n % 10;
+		temp_n /= 10;
 	}
 	return (str);
-}
-
-int	ft_print_unsigned(unsigned int n)
-{
-	char	*str;
-	int		n_p;
-
-	n_p = 0;
-	str = ft_uitoa(n);
-	n_p = ft_print_str(str);
-	free(str);
-	return (n_p);
 }
