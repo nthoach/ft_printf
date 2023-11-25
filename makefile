@@ -1,34 +1,33 @@
-NAME = libftprintf.a
+NAME=libftprintf.a
+SRC= printf/ft_printf.c printf/print_types.c printf/print_u.c
+SRC_BONUS= bonus/ft_printf_bonus.c bonus/print_c_bonus.c bonus/print_i_or_d_bonus.c bonus/print_s_bonus.c bonus/print_u_bonus.c \
+bonus/print_x_bonus.c bonus/print_x2_bonus.c bonus/print_p_bonus.c bonus/convert_hex_bonus.c bonus/ft_utoa_bonus.c
+OBJ=$(SRC:.c=.o)
+OBJ_BONUS=$(SRC_BONUS:.c=.o)
+LIB_PATH= ./libft
 
-SRC = ft_printf.c print_formats.c print_unsigned.c ft_itoa.c
 
-# SRC_BONUS = ft_bonus.c ft_bonus2.c */
+all: $(NAME)
 
-CC = cc
+$(NAME): $(OBJ)
+		$(MAKE) bonus -C $(LIB_PATH)
+		ar rcs $(NAME) $(OBJ) $(LIB_PATH)/*.o
 
-CFLAGS = -Wall -Wextra -Werror
+bonus: fclean $(OBJ_BONUS)
+		$(MAKE) bonus -C $(LIB_PATH)
+		ar rcs $(NAME) $(OBJ_BONUS) $(LIB_PATH)/*.o
 
-OBJ = $(SRC:.c=.o)
+%.o: %.c
+		gcc -Wall -Werror -Wextra -c $< -o $@
 
-# OBJ_BONUS = $(SRC_BONUS:.c=.o)
+clean:
+		$(MAKE) clean -C $(LIB_PATH)
+		rm -rf $(OBJ) $(OBJ_BONUS)
 
-all : $(NAME)
+fclean: clean
+		$(MAKE) fclean -C $(LIB_PATH)
+		rm -rf $(NAME)
 
-$(NAME) : $(OBJ)
-		ar rcs $(NAME) $(OBJ)
+re: fclean all
 
-# bonus : $(OBJ) $(OBJ_BONUS)
-#		ar rcs $(NAME) $(OBJ) $(OBJ_BONUS)
-
-%.o : %.c ft_printf.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean :
-	rm -f $(OBJ)
-
-fclean : clean
-		rm -f $(NAME)
-
-re : fclean all
-
-.PHONY : all bonus clean fclean re
+.PHONY: all clean fclean re bonus

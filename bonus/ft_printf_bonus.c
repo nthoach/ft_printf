@@ -1,124 +1,126 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Hoach Nguyen <honguyenn@student.42abudhabi.ae>              +#+  +:+       +#+        */
+/*   By: rkenji-s <rkenji-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 16:40:11 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/21 16:40:11 by marvin           ###   ########.fr       */
+/*   Created: 2021/10/10 04:28:14 by rkenji-s          #+#    #+#             */
+/*   Updated: 2021/10/10 04:28:14 by rkenji-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_printf(const char *str, ...)
+void	initialize_flags(t_flags *info)
 {
-	int		count;
-	t_flags	*inf;
-	int		size;
-
-	count = 0;
-	size = 0;
-	inf = (t_flags *) malloc(sizeof(t_flags));
-	if (!inf)
-		return (-1);
-	va_start(inf->arg, (char *)str);
-	while (str[count])
-	{
-		initialize_flags(inf);
-		if (str[count] == '%')
-		{
-			count += get_flags(&str[count + 1], inf);
-			size += use_flags(inf);
-		}
-		else
-			size += write(1, &str[count], 1);
-		count++;
-	}
-	va_end(inf->arg);
-	free(inf);
-	return (size);
+	info->letter = '\0';
+	info->minus = 0;
+	info->plus = 0;
+	info->point = 0;
+	info->precision = 0;
+	info->width = 0;
+	info->space = 0;
+	info->hashtag = 0;
+	info->zero = 0;
+	info->size = 0;
 }
 
-void	initialize_flags(t_flags *inf)
+int	get_flags2(const char *str, t_flags *info, int count)
 {
-	inf->letter = '\0';
-	inf->minus = 0;
-	inf->plus = 0;
-	inf->point = 0;
-	inf->precision = 0;	
-	inf->width = 0;
-	inf->space= 0;	
-	inf->hashtag = 0;
-	inf->zero = 0;	
-	inf->size = 0;
-}
-
-int	get_flags(const char *s, t_flags *inf)
-{
-	int	count;
-
-	count = 0;
-	while (s[count] == '+' || s[count] == '-'
-		|| s[count] == '0' || s[count] == '#'
-		|| s[count] == ' ')
+	if (str[count] >= '1' && str[count] <= '9')
 	{
-		if (s[count] == '+')
-			inf->plus = 1;
-		if (s[count] == '-')
-			inf->minus = 1;
-		if (s[count] == '0')
-			inf->zero = 1;
-		if (s[count] == '#')
-			inf->hashtag = 1;
-		if (s[count] == ' ')
-			inf->space = 1;	
-		count++;
-	}
-	count = get_flags2(s, inf, count);
-	inf->letter = s[count];
-	return (count + 1);
-}
-
-int	get_flags2(char *s, t_flags *inf, int count)
-{
-	if (s[count] >= '1' && s[count] <= '9')
-	{
-		inf->width = ft_atoi(s + count);
-		while (s[count] >= '0' && s[count] <= '9')
+		info->width = ft_atoi(str + count);
+		while (str[count] >= '0' && str[count] <= '9')
 			count++;
 	}
-	if (s[count] == '.')
+	if (str[count] == '.')
 	{
 		count++;
-		inf->point = 1;
-		inf->precision = ft_atoi(s + count);
-		while (s[count] >= '0' && s[count] <= '9')
+		info->point = 1;
+		info->precision = ft_atoi(str + count);
+		while (str[count] >= '0' && str[count] <= '9')
 			count++;
 	}
 	return (count);
 }
 
-int	use_flags(t_flags *inf)
+int	get_flags(const char *str, t_flags *info)
+{
+	int	count;
+
+	count = 0;
+	while (str[count] == '-' || str[count] == '+'
+		|| str[count] == '0' || str[count] == '#' || str[count] == ' ')
+	{
+		if (str[count] == '-')
+			info->minus = 1;
+		if (str[count] == '+')
+			info->plus = 1;
+		if (str[count] == '0')
+			info->zero = 1;
+		if (str[count] == '#')
+			info->hashtag = 1;
+		if (str[count] == ' ')
+			info->space = 1;
+		count++;
+	}
+	count = get_flags2(str, info, count);
+	info->letter = str[count];
+	return (count + 1);
+}
+
+int	use_flags(t_flags *info)
 {
 	int	size;
 
 	size = 1;
-	if (inf->letter == '%')
-		write(1, "%%", 1);
-	if (inf->letter == 'c')
-		size = print_c(inf);
-	if (inf->letter == 's')
-		size = print_s(inf);
-	if (inf->letter == 'p')
-		size = print_p(inf);
-	if (inf->letter == 'i' || inf->letter == 'd' )
-		size = print_i_or_d(inf);
-	if (inf->letter == 'u')
-		size = print_u(inf);
-	if (inf->letter == 'x')
-		size = print_x(inf);
-	if (inf->letter == 'X')
-		size = print_x2(inf);
+	if (info->letter == '%')
+		write (1, "%%", 1);
+	if (info->letter == 'c')
+		size = print_c(info);
+	if (info->letter == 's')
+		size = print_s(info);
+	if (info->letter == 'p')
+		size = print_p(info);
+	if (info->letter == 'd')
+		size = print_i_or_d(info);
+	if (info->letter == 'i')
+		size = print_i_or_d(info);
+	if (info->letter == 'u')
+		size = print_u(info);
+	if (info->letter == 'x')
+		size = print_x(info);
+	if (info->letter == 'X')
+		size = print_x2(info);
+	return (size);
+}
+
+int	ft_printf(const char *str, ...)
+{
+	int		count;
+	t_flags	*info;
+	int		size;
+
+	count = 0;
+	size = 0;
+	info = (t_flags *) malloc (sizeof(t_flags));
+	if (!info)
+		return (-1);
+	va_start (info->arg, (char *)str);
+	while (str[count] != '\0')
+	{
+		initialize_flags(info);
+		if (str[count] == '%')
+		{
+			count += get_flags(&str[count + 1], info);
+			size += use_flags(info);
+		}
+		else
+			size += write (1, &str[count], 1);
+		count++;
+	}
+	va_end(info->arg);
+	free (info);
+	return (size);
 }

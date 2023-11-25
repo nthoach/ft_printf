@@ -1,56 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c_bonus.c                                      :+:      :+:    :+:   */
+/*   print_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Hoach Nguyen <honguyen@student.42abudhabi.ac>              +#+  +:+       +#+        */
+/*   By: rkenji-s <rkenji-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 17:43:57 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/21 17:43:57 by marvin           ###   ########.fr       */
+/*   Created: 2021/10/10 04:28:03 by rkenji-s          #+#    #+#             */
+/*   Updated: 2021/10/10 04:28:03 by rkenji-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	print_c(t_flags *inf)
+static void	conditionals_1(t_flags *info, char c)
+{
+	write (1, &c, 1);
+	info->width--;
+	info->size++;
+	while (info->width > 0)
+	{
+		write (1, " ", 1);
+		info->width--;
+		info->size++;
+	}
+}
+
+static void	conditionals_2(t_flags *info, char c)
+{
+	info->width--;
+	while (info->width != 0)
+	{
+		write (1, " ", 1);
+		info->width--;
+		info->size++;
+	}
+	write (1, &c, 1);
+	info->size++;
+}
+
+int	print_c(t_flags *info)
 {
 	char	c;
 
-	c = va_arg(inf->arg, int);
-	if (inf->width && inf->minus == 1)
-		print_c1(inf, c);
-	else if (inf->width && inf->minus == 0)
-		print_c2(inf, c);
+	c = va_arg(info->arg, int);
+	if (info->width != 0 && info->minus == 1)
+		conditionals_1(info, c);
+	else if (info->width != 0 && info->minus == 0)
+		conditionals_2(info, c);
 	else
 	{
-		write(1, &c, 1);
-		inf->size++;
+		write (1, &c, 1);
+		info->size++;
 	}
-	return (inf->size);
-}
-
-static void print_c1(t_flags *inf, char c)
-{
-	write(1, &c, 1);
-	inf->width--;
-	inf->size++;
-	while (inf->width > 0)
-	{
-		write(1, " ", 1);
-		inf->width--;
-		inf->size++;
-	}
-}
-
-static void print_c2(t_flags *inf, char c)
-{
-	inf->width--;
-	while (inf->width)
-	{
-		write(1, " ", 1);
-		inf->width--;
-		inf->size++;
-	}
-	write(1, &c, 1);
-	inf->size++;
+	return (info->size);
 }
