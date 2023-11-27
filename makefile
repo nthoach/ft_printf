@@ -1,11 +1,10 @@
-NAME=libftprintf.a
 SRC= printf/ft_printf.c printf/print_types.c printf/print_u.c
+OBJ=$(SRC:.c=.o)
 SRC_BONUS= bonus/ft_printf_bonus.c bonus/print_c_bonus.c bonus/print_i_or_d_bonus.c bonus/print_s_bonus.c bonus/print_u_bonus.c \
 bonus/print_x_bonus.c bonus/print_x2_bonus.c bonus/print_p_bonus.c bonus/convert_hex_bonus.c bonus/ft_utoa_bonus.c
-OBJ=$(SRC:.c=.o)
 OBJ_BONUS=$(SRC_BONUS:.c=.o)
 LIB_PATH= ./libft
-
+NAME=libftprintf.a
 
 all: $(NAME)
 
