@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:29:46 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/25 23:56:19 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:29:13 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	print_s(va_list ap)
 		return (6);
 	}
 	len = 0;
-	while (*str++)
-		len += write(1, str, 1);
+	while (str[len])
+		len += write(1, &str[len], 1);
 	return (len);
 }
 
@@ -57,7 +57,7 @@ static int	print_formats(va_list ap, char chr)
 
 	np = 1;
 	if (chr == '%')
-		write(1, "%a", 1);
+		write(1, "%", 1);
 	else if (chr == 'c')
 		np = print_c(ap);
 	else if (chr == 's')

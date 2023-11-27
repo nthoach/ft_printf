@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:35:25 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/25 23:59:43 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:24:21 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 int	ft_printf(const char *s, ...);
