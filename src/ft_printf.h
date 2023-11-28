@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/27 16:29:12 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/11/28 13:58:49 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ va_list, va_arg, va_end*/
 read, write, close, lseek, , access, unlink, chdir, 
 fork, exec, getpid, exit, STDIN_FILENO, STDOU_FILENO, 
 STDERR_FILENO, getcwd, sleep, alarm */
+# include <stddef.h>
+/* for NULL */
 # include "../libft/libft.h"
 
 typedef struct s_formats
