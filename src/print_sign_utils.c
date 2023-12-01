@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_nbr_utils.c                                  :+:      :+:    :+:   */
+/*   print_sign_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:54:04 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 13:01:23 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:02:43 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	len_num_str(int n)
 	if (n == 0)
 		return (1);
 	len = 0;
-	while (n)
+	while (n > 0)
 	{
 		n = n / 10;
 		len++;
@@ -27,7 +27,7 @@ int	len_num_str(int n)
 	return (len);
 }
 
-static int	totalize_len(int n, int no_digit, t_formats *p)
+int	totalize_len(int n, int no_digit, t_formats *p)
 {
 	int	len_total;
 
@@ -38,34 +38,26 @@ static int	totalize_len(int n, int no_digit, t_formats *p)
 	if ((*p).precision > no_digit)
 		len_total = (*p).precision;
 	len_total += (*p).sign;
+	//printf("%d\n", len_total);
 	return (len_total);
 }
 
 int	print_sign(t_formats formats, int n)
-	{
-		int	np;
-				
-		np = 0;
-		return (np);
-	}
-	
-int	print_precision(t_formats formats, int no_digit)
-	{
-		int	np;
-				
-		np = 0;
-		return (np);
-	}
-
-int print_width(t_formats formats, int len_total)	
-	{
-		int	np;
-				
-		np = 0;
-		return (np);
-	}
-
-void	ft_putnbr(int n, int *p_np)
 {
-	
+	int	np;
+
+	np = 0;
+	if (n >= 0 && formats.plus == 1)
+	{
+		np += ft_putnchar('+', 1);
+		return (np);
+	}
+	else if (n >= 0 && formats.space == 1)
+	{
+		np += ft_putnchar(' ', 1);
+		return (np);
+	}
+	else if (n < 0)
+		np += ft_putnchar('-', 1);
+	return (np);
 }

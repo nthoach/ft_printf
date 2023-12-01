@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:21:30 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 10:52:47 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:10:46 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	main(void)
 {
-	printf("[This is a test string %%:%9.7s%5c]\n", "XX", '0');
-	ft_printf("[This is a test string %%:%9.7s%5c]\n", "XX", '0');
+	printf("[This is a test string %%:%15.d%5c]\n", 10, '0');
+	ft_printf("[This is a test string %%:%15.d%5c]\n", 10, '0');
 	// printf("%%5%s\n", "Hello");
 	// ft_printf("%%5%s\n\n", "Hello");
 	// printf(":\001\002\007\v\010\f\r:\n");
