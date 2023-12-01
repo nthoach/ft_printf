@@ -1,32 +1,54 @@
-SRC= printf/ft_printf.c printf/print_types.c printf/print_u.c
-OBJ=$(SRC:.c=.o)
-SRC_BONUS= bonus/ft_printf_bonus.c bonus/print_c_bonus.c bonus/print_i_or_d_bonus.c bonus/print_s_bonus.c bonus/print_u_bonus.c \
-bonus/print_x_bonus.c bonus/print_x2_bonus.c bonus/print_p_bonus.c bonus/convert_hex_bonus.c bonus/ft_utoa_bonus.c
-OBJ_BONUS=$(SRC_BONUS:.c=.o)
-LIB_PATH= ./libft
-NAME=libftprintf.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/01 16:58:20 by honguyen          #+#    #+#              #
+#    Updated: 2023/12/01 17:11:44 by honguyen         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-all: $(NAME)
+NAME = libftprintf.a
 
-$(NAME): $(OBJ)
-		$(MAKE) bonus -C $(LIB_PATH)
-		ar rcs $(NAME) $(OBJ) $(LIB_PATH)/*.o
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-bonus: fclean $(OBJ_BONUS)
-		$(MAKE) bonus -C $(LIB_PATH)
-		ar rcs $(NAME) $(OBJ_BONUS) $(LIB_PATH)/*.o
+SRC_DIR = src
 
-%.o: %.c
-		gcc -Wall -Werror -Wextra -c $< -o $@
+SRCS = $(addprefix $(SRC_DIR)/, \
+ft_printf.c \
+printf_blank_utils.c \
+printf_c.c \
+printf_s.c \
+printf_sign_utils.c \
+printf_d_i.c \
+printf_p.c \
+printf_u.c \
+printf_x.c)
 
-clean:
-		$(MAKE) clean -C $(LIB_PATH)
-		rm -rf $(OBJ) $(OBJ_BONUS)
+OBJS = $(SRCS:.c=.o)
 
-fclean: clean
-		$(MAKE) fclean -C $(LIB_PATH)
-		rm -rf $(NAME)
+all : $(NAME)
 
-re: fclean all
+$(NAME) : $(OBJS)
+	make -C libft
+	mv libft/libft.a libftprintf.a
+	ar rcs $(NAME) $(OBJS)
+	
+$(addprefix $(SRC_DIR), $(OBJS)) : $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
-.PHONY: all clean fclean re bonus
+bonus : all
+	
+clean :
+	make -C libft fclean
+	rm -f $(OBJS)
+
+fclean : clean
+	rm -f $(NAME)
+
+re : fclean all
+
+.PHONY: all clean fclean re

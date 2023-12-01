@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:21:30 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 16:05:42 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:57:22 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 int	main(void)
 {
 	char *s = "ABC";
-	printf("[This is a test string %%:%15.d:%5c:%-20p:%-5.3x:%-#12X:]\n", 357, 'X', s, 255, 255);
-	ft_printf("[This is a test string %%:%15.d:%5c:%-20p:%-5.3x:%-#12X:]\n", 357, 'X', s, 255, 255);
+	printf("[This is a test string %%:%15.d:%5c:%-20p:%-5.3x:%-#12X:%-15.10u]\n", 357, 'X', s, 255, 255, UINT32_MAX);
+	ft_printf("[This is a test string %%:%15.d:%5c:%-20p:%-5.3x:%-#12X:%-15.10u]\n", 357, 'X', s, 255, 255, UINT32_MAX);
 	// printf("%%5%s\n", "Hello");
 	// ft_printf("%%5%s\n\n", "Hello");
 	// printf(":\001\002\007\v\010\f\r:\n");
