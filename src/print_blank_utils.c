@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:47:55 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 14:09:10 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:12:49 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	print_precision(t_formats formats, int no_digit)
 	np = 0;
 	n_blank = formats.precision - no_digit;
 	np += ft_putnchar('0', n_blank);
-	//printf("%i\n", n_blank);//
 	return (np);
 }
 

@@ -6,13 +6,13 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:54:04 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 14:02:43 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:13:22 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	len_num_str(int n)
+int	len_s_base(long n, int base)
 {
 	int	len;
 
@@ -21,7 +21,24 @@ int	len_num_str(int n)
 	len = 0;
 	while (n > 0)
 	{
-		n = n / 10;
+		n = n / base;
+		len++;
+	}
+	return (len);
+}
+
+int	len_x(long n, int base, t_formats formats)
+{
+	int	len;
+
+	if (n == 0 && formats.dot == 1 && formats.precision == 0)
+		return (0);
+	else if (n == 0)
+		return (1);
+	len = 0;
+	while (n > 0)
+	{
+		n = n / base;
 		len++;
 	}
 	return (len);
@@ -38,7 +55,6 @@ int	totalize_len(int n, int no_digit, t_formats *p)
 	if ((*p).precision > no_digit)
 		len_total = (*p).precision;
 	len_total += (*p).sign;
-	//printf("%d\n", len_total);
 	return (len_total);
 }
 
@@ -60,4 +76,16 @@ int	print_sign(t_formats formats, int n)
 	else if (n < 0)
 		np += ft_putnchar('-', 1);
 	return (np);
+}
+
+int	print_0x(t_formats formats, char c, unsigned int x)
+{
+	int	count;
+
+	count = 0;
+	if (c == 'x' && formats.sharp == 1 && x != 0)
+		count += ft_putxstr("0x", 2);
+	if (c == 'X' && formats.sharp == 1 && x != 0)
+		count += ft_putxstr("0X", 2);
+	return (count);
 }

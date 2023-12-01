@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:22:56 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 13:56:42 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:20:06 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ int	print_d_i(unsigned int n, t_formats formats)
 	int	len_total;
 
 	np = 0;
-	no_digit = len_num_str(n);
-	//printf("%d\n", no_digit);
+	no_digit = len_s_base((long)n, 10);
 	len_total = totalize_len(n, no_digit, &formats);
 	if (formats.precision == 0 && formats.dot == 1 && n == 0)
 		len_total--;

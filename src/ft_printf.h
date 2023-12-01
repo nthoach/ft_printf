@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 13:53:35 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:01:10 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int		print_u(unsigned int u, t_formats formats);
 int		print_x(unsigned int x, t_formats formats, char c);
 int		print_precision(t_formats formats, int no_digit);
 int		print_width(t_formats formats, int len_total, char c);
-int		len_num_str(int n);
+int		len_s_base(long n, int base);
+int		len_x(long n, int base, t_formats formats);
 int		totalize_len(int n, int no_digit, t_formats *p);
 int		print_sign(t_formats formats, int n);
 void	ft_putnbr(int n, int *p_np);
+int		print_hex(unsigned long n, char x, t_formats formats);
+int		print_0x(t_formats formats, char c, unsigned int x);
 #endif
