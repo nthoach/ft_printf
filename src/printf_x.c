@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:25:32 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:34:43 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:24:36 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	print_x(unsigned int x, t_formats formats, char c)
 		np += print_width(formats, len_total, '0');
 	if (formats.dot == 1)
 		np += print_precision (formats, len_hex);
-	np += print_hex(x, c, formats);
+	print_hex(x, c, formats, &np);
 	if (formats.minus == 1)
 		np += print_width(formats, len_total, ' ');
 	return (np);

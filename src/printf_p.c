@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:23:58 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:24 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:27:24 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,24 @@
  parametesrs: "-" flag and the width, no precision
 */
 
-int	print_hex(unsigned long n, char x, t_formats formats)
+void	print_hex(unsigned long n, char x, t_formats formats, int *np)
 {
-	int		len;
 	char	c;
 
-	len = 0;
 	if (n == 0 && formats.dot == 1 && formats.precision == 0)
-		return (0);
+		return ;
 	else
 	{
 		if (n >= 16)
-			print_hex(n / 16, x, formats);
+			print_hex(n / 16, x, formats, np);
 		if (x == 'x' && (n % 16) > 9)
 			c = (n % 16) - 10 + 'a';
 		else if (x == 'X' && (n % 16) > 9)
 			c = (n % 16) - 10 + 'A';
 		else
 			c = n % 16 + '0';
-		len += ft_putnchar(c, 1);
+		*np += ft_putnchar(c, 1);
 	}
-	return (len);
 }
 
 int	print_p(unsigned long p, t_formats	formats)
@@ -52,7 +49,7 @@ int	print_p(unsigned long p, t_formats	formats)
 	if (formats.minus == 0)
 		np += print_width(formats, len_p + 2, ' ');
 	np += ft_putxstr("0x", 2);
-	np += print_hex(p, 'x', formats);
+	print_hex(p, 'x', formats, &np);
 	if (formats.minus == 1)
 		np += print_width(formats, len_p + 2, ' ');
 	return (np);

@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:54:04 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:35 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:37:22 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	len_s_base(long n, int base)
 	if (n == 0)
 		return (1);
 	len = 0;
-	while (n > 0)
+	while (n != 0)
 	{
 		n = n / base;
 		len++;
@@ -71,7 +71,6 @@ int	print_sign(t_formats formats, int n)
 	else if (n >= 0 && formats.space == 1)
 	{
 		np += ft_putnchar(' ', 1);
-		return (np);
 	}
 	else if (n < 0)
 		np += ft_putnchar('-', 1);

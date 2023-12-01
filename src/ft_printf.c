@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:54 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:35:56 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:47:11 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	print_types(va_list ap, t_formats formats, char **s)
 		np += print_x(va_arg(ap, unsigned int), formats, **s);
 	else if (**s == '%')
 		np += print_c('%', formats);
+	(*s)++;
 	return (np);
 }
 
@@ -50,13 +51,13 @@ static void	get_flags(t_formats *formats, char **s)
 	{
 		if (**s == '-')
 			formats->minus = 1;
-		else if (**s == '0')
+		if (**s == '0')
 			formats->zero = 1;
-		else if (**s == '#')
+		if (**s == '#')
 			formats->sharp = 1;
-		else if (**s == ' ')
+		if (**s == ' ')
 			formats->space = 1;
-		else if (**s == '+')
+		if (**s == '+')
 			formats->plus = 1;
 		(*s)++;
 	}
@@ -97,7 +98,7 @@ static int	print_options(va_list ap, char **s)
 	{
 		formats.dot = 1;
 		(*s)++;
-		get_width_prcn(&formats.precision, s);
+		get_width_prcn(&(formats.precision), s);
 	}
 	if (ft_strchr("cspdiuxX%", **s) != 0)
 		np = print_types(ap, formats, s);
@@ -113,8 +114,8 @@ static int	print_options(va_list ap, char **s)
 int	ft_printf(const	char *s_in, ...)
 {
 	char	*s;
-	va_list	ap;
 	int		np;
+	va_list	ap;
 
 	np = 0;
 	s = (char *) s_in;
@@ -129,8 +130,8 @@ int	ft_printf(const	char *s_in, ...)
 		else
 		{
 			np += ft_putnchar(*s, 1);
+			s++;
 		}
-		s++;
 	}
 	va_end(ap);
 	return (np);

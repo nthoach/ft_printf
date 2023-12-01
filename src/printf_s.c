@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:47 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:29 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:02:46 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	print_s(char *s, t_formats formats)
 	int	flag;
 
 	flag = 0;
+	np = 0;
 	if (!s)
 	{
 		s = ft_strdup("(null)");
