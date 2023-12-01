@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:47:55 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:04 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:58:52 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	print_width(t_formats formats, int len_total, char c)
 	return (np);
 }
 
-void	ft_putnbr(int n, int *p_np)
+void	ft_putnbr(long n, int *p_np)
 {
 	char	c;
 	long	nbr;

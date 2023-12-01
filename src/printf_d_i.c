@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:22:56 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:19 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:59:30 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	print_di1(t_formats formats, int n, int no_digit, int len_total)
 	np += print_sign(formats, n);
 	np += print_precision(formats, no_digit);
 	if (!(n == 0 && formats.dot == 1 && formats.precision == 0))
-		ft_putnbr(n, &np);
+		ft_putnbr((long)n, &np);
 	return (np);
 }
 
@@ -85,14 +85,14 @@ static int	print_di4(t_formats formats, int n, int no_digit, int len_total)
 	return (np);
 }
 
-int	print_d_i(unsigned int n, t_formats formats)
+int	print_d_i(int n, t_formats formats)
 {
 	int	np;
 	int	no_digit;
 	int	len_total;
 
 	np = 0;
-	no_digit = len_s_base((long)n, 10);
+	no_digit = len_s_base((long long)n, 10);
 	len_total = totalize_len(n, no_digit, &formats);
 	if (formats.precision == 0 && formats.dot == 1 && n == 0)
 		len_total--;

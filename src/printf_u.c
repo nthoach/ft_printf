@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:18:01 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 17:36:41 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:57:32 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	print_u(unsigned int u, t_formats formats)
 	int	len_total;
 
 	np = 0;
-	len_u = len_x((long) u, 10, formats);
+	len_u = len_x(u, formats);
 	len_total = total_len(formats.precision, len_u);
 	if (formats.minus == 0 && formats.dot == 0)
 	{

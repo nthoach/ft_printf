@@ -6,13 +6,13 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:54:04 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 19:37:22 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:56:33 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-int	len_s_base(long n, int base)
+int	len_s_base(long long n, int base)
 {
 	int	len;
 
@@ -27,7 +27,7 @@ int	len_s_base(long n, int base)
 	return (len);
 }
 
-int	len_x(long n, int base, t_formats formats)
+int	len_x(unsigned n, t_formats formats)
 {
 	int	len;
 
@@ -38,7 +38,7 @@ int	len_x(long n, int base, t_formats formats)
 	len = 0;
 	while (n > 0)
 	{
-		n = n / base;
+		n = n / 10;
 		len++;
 	}
 	return (len);

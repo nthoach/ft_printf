@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:23:58 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 19:27:24 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:51:10 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	print_p(unsigned long p, t_formats	formats)
 	int	len_p;
 
 	np = 0;
-	len_p = len_s_base(p, 16);
+	len_p = len_s_base((long long)p, 16);
 	if (formats.minus == 0)
 		np += print_width(formats, len_p + 2, ' ');
 	np += ft_putxstr("0x", 2);
