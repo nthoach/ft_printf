@@ -6,49 +6,38 @@
 #    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/01 16:58:20 by honguyen          #+#    #+#              #
-#    Updated: 2023/12/01 17:11:44 by honguyen         ###   ########.fr        #
+#    Updated: 2023/12/01 18:00:52 by honguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+SRC= src/ft_printf.c src/printf_blank_utils.c src/printf_c_utils.c \
+	src/printf_c.c src/printf_d_i.c src/printf_p.c src/printf_s.c \
+	src/printf_sign_utils.c src/printf_u.c src/printf_x.c
+OBJ=$(SRC:.c=.o)
+LIB_PATH= ./libft
+NAME=libftprintf.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+all: $(NAME)
 
-SRC_DIR = src
+$(NAME): $(OBJ)
+		$(MAKE) bonus -C $(LIB_PATH)
+		ar rcs $(NAME) $(OBJ) $(LIB_PATH)/*.o
 
-SRCS = $(addprefix $(SRC_DIR)/, \
-ft_printf.c \
-printf_blank_utils.c \
-printf_c.c \
-printf_s.c \
-printf_sign_utils.c \
-printf_d_i.c \
-printf_p.c \
-printf_u.c \
-printf_x.c)
+bonus: fclean $(OBJ)
+		$(MAKE) bonus -C $(LIB_PATH)
+		ar rcs $(NAME) $(OBJ) $(LIB_PATH)/*.o
 
-OBJS = $(SRCS:.c=.o)
+%.o: %.c
+		gcc -Wall -Werror -Wextra -c $< -o $@
 
-all : $(NAME)
+clean:
+		$(MAKE) clean -C $(LIB_PATH)
+		rm -rf $(OBJ)
 
-$(NAME) : $(OBJS)
-	make -C libft
-	mv libft/libft.a libftprintf.a
-	ar rcs $(NAME) $(OBJS)
-	
-$(addprefix $(SRC_DIR), $(OBJS)) : $(SRCS)
-	$(CC) $(CFLAGS) -c $(SRCS)
+fclean: clean
+		$(MAKE) fclean -C $(LIB_PATH)
+		rm -rf $(NAME)
 
-bonus : all
-	
-clean :
-	make -C libft fclean
-	rm -f $(OBJS)
+re: fclean all
 
-fclean : clean
-	rm -f $(NAME)
-
-re : fclean all
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

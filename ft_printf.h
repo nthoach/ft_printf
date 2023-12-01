@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 16:01:10 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:35:12 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ fork, exec, getpid, exit, STDIN_FILENO, STDOU_FILENO,
 STDERR_FILENO, getcwd, sleep, alarm */
 # include <stddef.h>
 /* for NULL */
-# include "../libft/libft.h"
-# include <stdio.h>
+# include "libft/libft.h"
+//# include <stdio.h>
 
 typedef struct s_formats
 {

@@ -6,11 +6,11 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:22:56 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 14:20:06 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:36:19 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 /*
 	(1) printing signed integer numbers with %d and %i

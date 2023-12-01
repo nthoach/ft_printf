@@ -6,11 +6,11 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:54 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 10:42:38 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:35:56 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 /*
 	print different data-types based on defined formats

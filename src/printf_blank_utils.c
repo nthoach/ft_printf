@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_blank_utils.c                                :+:      :+:    :+:   */
+/*   printf_blank_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:47:55 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 14:12:49 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:36:04 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 int	print_precision(t_formats formats, int no_digit)
 {

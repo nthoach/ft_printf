@@ -6,11 +6,11 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:23:58 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 15:56:54 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:36:24 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 /*
  two cases:
