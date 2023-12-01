@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:47 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 10:14:23 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:05:18 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ static void	print_s_blanks(char *s, t_formats formats, int *np)
 
 /* print_s:
 	Cases:
-	1) %.s <-> %.0s -> print: "" (empty string)				
+	1) %.s <-> %.0s precsion = 1
+		-> print: "" (empty string), precion 			
 	2) width < len(s)-> whole string print
 	3) width > len(s) -> (width - precsion/len) of blanks
-	4) %0 -> underfined
+	4) %0 -> underfined because of string, not a number
 	5) %- -> ignore 0 (left-justified): %-5.1, "Hi" [Hi   ]
 	6) s = NULL -> print "(null)"
 	7) empty string (*s = '\0') -> print ""

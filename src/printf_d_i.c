@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:22:56 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 11:27:00 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:56:34 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,75 @@
 	yes "0": (+- )(000-width)(123)
 */
 
+static int	print_di1(t_formats formats, int n, int no_digit, int len_total)
+{
+	int	np;
+
+	np = 0;
+	np += print_width(formats, len_total, ' ');
+	np += print_sign(formats, n);
+	np += print_precision(formats, no_digit);
+	if (!(n == 0 && formats.dot == 1 && formats.precision == 0))
+		ft_putnbr(n, &np);
+	return (np);
+}
+
+static int	print_di2(t_formats formats, int n, int len_total)
+{
+	int	np;
+
+	np = 0;
+	np += print_sign(formats, n);
+	np += print_width(formats, len_total, '0');
+	ft_putnbr(n, &np);
+	return (np);
+}
+
+static int	print_di3(t_formats formats, int n, int len_total)
+{
+	int	np;
+
+	np = 0;
+	np += print_width(formats, len_total, ' ');
+	np += print_sign(formats, n);
+	ft_putnbr(n, &np);
+	return (np);
+}
+
+static int	print_di4(t_formats formats, int n, int no_digit, int len_total)
+{
+	int	np;
+
+	np = 0;
+	np += print_sign(formats, n);
+	np += print_precision(formats, no_digit);
+	if (!(n == 0 && formats.dot == 1 && formats.precision == 0))
+		ft_putnbr(n, &np);
+	np += print_width(formats, len_total, ' ');
+	return (np);
+}
+
 int	print_d_i(unsigned int n, t_formats formats)
 {
 	int	np;
 	int	no_digit;
-	
+	int	len_total;
+
 	np = 0;
 	no_digit = len_num_str(n);
-	
-	
-	formats.precision = 0;
-	np = printf("%d", n);
+	len_total = totalize_len(n, no_digit, &formats);
+	if (formats.precision == 0 && formats.dot == 1 && n == 0)
+		len_total--;
+	if (formats.minus == 0 && formats.dot == 1)
+		np += print_di1(formats, n, no_digit, len_total);
+	if (formats.minus == 0 && formats.dot == 0)
+	{
+		if (formats.zero == 1)
+			np += print_di2(formats, n, len_total);
+		else
+			np += print_di3(formats, n, len_total);
+	}
+	if (formats.minus == 1)
+		np += print_di4(formats, n, no_digit, len_total);
 	return (np);
 }

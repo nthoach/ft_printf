@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 10:33:57 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:20:58 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_formats
 	int	plus;
 	int	width;
 	int	precision;
+	int	sign;
 }	t_formats;
 
 /* "cspdiuxX%" flags for mandatory */
