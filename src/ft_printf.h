@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/28 13:58:49 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/12/01 10:33:57 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ STDERR_FILENO, getcwd, sleep, alarm */
 # include <stddef.h>
 /* for NULL */
 # include "../libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_formats
 {
@@ -42,7 +43,14 @@ typedef struct s_formats
 /* "-0.# +" flags for bonus */
 /* two numbers for length-width */
 
-int	ft_printf(const char *s, ...);
-
+int	ft_printf(const	char *s_in, ...);
+int	print_c(char c, t_formats formats);
+int	ft_putxstr(char *s, int len);
+int	ft_putnchar(char c, int n);
+int	print_s(char *s, t_formats formats);
+int	print_p(unsigned long p, t_formats formats);
+int	print_d_i(unsigned int n, t_formats formats);
+int	print_u(unsigned int u, t_formats formats);
+int	print_x(unsigned int x, t_formats formats, char c);
 
 #endif

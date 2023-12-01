@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:54 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/28 18:16:55 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 10:42:38 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	print different data-types based on defined formats
 */
-int	print_types(va_list ap, t_formats formats, char **s)
+static int	print_types(va_list ap, t_formats formats, char **s)
 {
 	int	np;
 
@@ -34,6 +34,7 @@ int	print_types(va_list ap, t_formats formats, char **s)
 		np += print_x(va_arg(ap, unsigned int), formats, **s);
 	else if (**s == '%')
 		np += print_c('%', formats);
+	return (np);
 }
 
 /*
@@ -41,6 +42,7 @@ int	print_types(va_list ap, t_formats formats, char **s)
 	and save it into formats tructures.
 	s --> *s --> **s
 	any change in the pointer *s can be saved and updated in s
+	"-0." & '# +'
 */
 static void	get_flags(t_formats *formats, char **s)
 {
@@ -95,7 +97,7 @@ static int	print_options(va_list ap, char **s)
 	{
 		formats.dot = 1;
 		(*s)++;
-		get_width_prc(&formats.precision, s);
+		get_width_prcn(&formats.precision, s);
 	}
 	if (ft_strchr("cspdiuxX%", **s) != 0)
 		np = print_types(ap, formats, s);
@@ -114,6 +116,7 @@ int	ft_printf(const	char *s_in, ...)
 	va_list	ap;
 	int		np;
 
+	np = 0;
 	s = (char *) s_in;
 	va_start(ap, s_in);
 	while (*s)
@@ -126,8 +129,8 @@ int	ft_printf(const	char *s_in, ...)
 		else
 		{
 			np += ft_putnchar(*s, 1);
-			s++;
 		}
+		s++;
 	}
 	va_end(ap);
 	return (np);

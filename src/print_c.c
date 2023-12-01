@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:59:58 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/28 13:55:46 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/12/01 10:51:11 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	print_c(char c, t_formats formats)
 	int	n_blank;
 	int	np;
 
+	np = 0;
 	n_blank = formats.width - 1;
 	if (formats.minus == 1)
 	{
@@ -40,4 +41,5 @@ int	print_c(char c, t_formats formats)
 			np += ft_putnchar(' ', n_blank);
 		np += ft_putnchar(c, 1);
 	}
+	return (np);
 }

@@ -3,14 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   print_s.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:47 by honguyen          #+#    #+#             */
-/*   Updated: 2023/11/28 14:25:40 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/12/01 10:14:23 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_putxstr(char *s, int len)
+{
+	write(1, s, len);
+	return (len);
+}
+
+int	ft_putnchar(char c, int n)
+{
+	int	i;
+
+	i = 0;
+	if (n <= 0)
+		return (0);
+	else
+	{
+		while (i < n)
+		{
+			write(1, &c, 1);
+			i++;
+		}
+	}
+	return (n);
+}
+
+static void	print_s_blanks(char *s, t_formats formats, int *np)
+{
+	int	len;
+	int	n_blanks;
+
+	len = (int) ft_strlen(s);
+	if (formats.dot == 1 && formats.precision < len)
+		len = formats.precision;
+	n_blanks = formats.width - len;
+	if (formats.minus == 1)
+	{
+		*np += ft_putxstr(s, len);
+		*np += ft_putnchar(' ', n_blanks);
+	}
+	else
+	{
+		if (formats.zero == 1)
+			*np += ft_putnchar('0', n_blanks);
+		else if (formats.zero == 0)
+			*np += ft_putnchar(' ', n_blanks);
+		*np += ft_putxstr(s, len);
+	}
+}
 
 /* print_s:
 	Cases:
@@ -25,38 +73,19 @@
 */
 int	print_s(char *s, t_formats formats)
 {
-	int	len;
 	int	np;
 	int	flag;
-	int	n_blanks;
 
-	np = 0;
 	flag = 0;
 	if (!s)
 	{
 		s = ft_strdup("(null)");
 		if (!s)
 			return (-1);
-		flag = 1;		
+		flag = 1;
 	}
-	len = (int) ft_strlen(s);
-	if (formats.dot == 1 && formats.precision < len)
-		len = formats.precision;
-	n_blanks = formats.width - len;
-	if (formats.minus == 1)
-	{
-		np += ft_putxstr(s, len);
-		np += ft_putnchar(' ', n_blanks);
-	}
-	else
-	{
-		if (formats.zero == 1)
-			np += ft_putnchar('0', n_blanks);
-		else if (formats.zero == 0)
-			np += ft_putchar(' ', n_blanks);
-		np += ft_putnstr(s, len);
-	}
-	if (flag)
+	print_s_blanks(s, formats, &np);
+	if (flag == 1)
 		free(s);
-	return(np);
+	return (np);
 }
