@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 10:25:32 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 19:24:36 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:01:39 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	print_x(unsigned int x, t_formats formats, char c)
 	int	len_total;
 
 	np = 0;
-	len_hex = len_x((long)x, 16, formats);
+	len_hex = len_x((long)x, formats);
 	len_total = len_hex;
 	if (formats.precision > len_total)
 		len_total = formats.precision;
