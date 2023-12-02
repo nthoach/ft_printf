@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_sign_utils.c                                :+:      :+:    :+:   */
+/*   sign_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:54:04 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 19:56:33 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/02 12:49:31 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-int	len_s_base(long long n, int base)
+int	len_s_base(unsigned long n, int base)
 {
 	int	len;
 
@@ -27,16 +27,14 @@ int	len_s_base(long long n, int base)
 	return (len);
 }
 
-int	len_x(unsigned n, t_formats formats)
+int	len_int(int n)
 {
 	int	len;
 
-	if (n == 0 && formats.dot == 1 && formats.precision == 0)
-		return (0);
-	else if (n == 0)
+	if (n == 0)
 		return (1);
 	len = 0;
-	while (n > 0)
+	while (n != 0)
 	{
 		n = n / 10;
 		len++;

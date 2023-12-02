@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:59:02 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/02 09:50:14 by nthoach          ###   ########.fr       */
+/*   Updated: 2023/12/02 12:18:33 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ read, write, close, lseek, , access, unlink, chdir,
 fork, exec, getpid, exit, STDIN_FILENO, STDOU_FILENO, 
 STDERR_FILENO, getcwd, sleep, alarm */
 # include <stddef.h>
+# include <stdlib.h>
 /* for NULL */
-# include "libft/libft.h"
 //# include <stdio.h>
 
 typedef struct s_formats
@@ -46,8 +46,6 @@ typedef struct s_formats
 
 int		ft_printf(const	char *s_in, ...);
 int		print_c(char c, t_formats formats);
-int		ft_putxstr(char *s, int len);
-int		ft_putnchar(char c, int n);
 int		print_s(char *s, t_formats formats);
 int		print_p(unsigned long p, t_formats formats);
 int		print_d_i(int n, t_formats formats);
@@ -55,11 +53,19 @@ int		print_u(unsigned int u, t_formats formats);
 int		print_x(unsigned int x, t_formats formats, char c);
 int		print_precision(t_formats formats, int no_digit);
 int		print_width(t_formats formats, int len_total, char c);
-int		len_s_base(long long n, int base);
-int		len_x(unsigned n, t_formats formats);
-int		totalize_len(int n, int no_digit, t_formats *p);
 int		print_sign(t_formats formats, int n);
-void	ft_putnbr(long n, int *p_np);
 void	print_hex(unsigned long n, char x, t_formats formats, int *np);
 int		print_0x(t_formats formats, char c, unsigned int x);
+int		len_s_base(unsigned long n, int base);
+int		len_uint(unsigned int n, t_formats formats, int base);
+int		len_int(int n);
+int		totalize_len(int n, int no_digit, t_formats *p);
+void	ft_putnbr(long n, int *p_np);
+int		ft_putxstr(char *s, int len);
+int		ft_putnchar(char c, int n);
+void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *s);
+
 #endif

@@ -6,11 +6,11 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:54 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/01 18:47:11 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/02 12:36:38 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 /*
 	print different data-types based on defined formats
@@ -22,17 +22,17 @@ static int	print_types(va_list ap, t_formats formats, char **s)
 	np = 0;
 	if (**s == 'c')
 		np += print_c(va_arg(ap, int), formats);
-	else if (**s == 's')
+	if (**s == 's')
 		np += print_s(va_arg(ap, char *), formats);
-	else if (**s == 'p')
+	if (**s == 'p')
 		np += print_p(va_arg(ap, unsigned long), formats);
-	else if (**s == 'd' || **s == 'i')
+	if (**s == 'd' || **s == 'i')
 		np += print_d_i(va_arg(ap, int), formats);
-	else if (**s == 'u')
+	if (**s == 'u')
 		np += print_u(va_arg(ap, unsigned int), formats);
-	else if (**s == 'x' || **s == 'X')
+	if (**s == 'x' || **s == 'X')
 		np += print_x(va_arg(ap, unsigned int), formats, **s);
-	else if (**s == '%')
+	if (**s == '%')
 		np += print_c('%', formats);
 	(*s)++;
 	return (np);
@@ -91,7 +91,7 @@ static int	print_options(va_list ap, char **s)
 	t_formats	formats;
 
 	np = 0;
-	ft_bzero(&formats, sizeof(t_formats));
+	ft_memset(&formats, 0, sizeof(t_formats));
 	get_flags(&formats, s);
 	get_width_prcn(&formats.width, s);
 	if (**s == '.')

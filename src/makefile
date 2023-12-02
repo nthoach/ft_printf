@@ -3,39 +3,44 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+         #
+#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/01 16:58:20 by honguyen          #+#    #+#              #
-#    Updated: 2023/12/02 09:48:47 by nthoach          ###   ########.fr        #
+#    Updated: 2023/12/02 12:12:19 by honguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = src/ft_printf.c src/printf_blank_utils.c src/printf_c_utils.c \
-	src/printf_c.c src/printf_d_i.c src/printf_p.c src/printf_s.c \
-	src/printf_sign_utils.c src/printf_u.c src/printf_x.c
+SRC = blank_utils.c \
+	ft_memset.c \
+	ft_printf.c \
+	ft_strchr.c \
+	ft_strdup.c \
+	ft_strlen.c \
+	printf_c.c \
+	printf_d_i.c \
+	printf_p.c \
+	printf_s.c \
+	printf_u.c \
+	printf_x.c \
+	sign_utils.c 
 OBJ = $(SRC:.c=.o)
-LIB_PATH = ./libft
 NAME = libftprintf.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(MAKE) bonus -C $(LIB_PATH)
-		ar rc $(NAME) $(OBJ) $(LIB_PATH)/*.o
+		ar rcs $(NAME) $(OBJ)
 
 bonus: fclean $(OBJ)
-		$(MAKE) bonus -C $(LIB_PATH)
-		ar rc $(NAME) $(OBJ) $(LIB_PATH)/*.o
+		ar rc $(NAME) $(OBJ)
 
 %.o: %.c
 		cc -Wall -Werror -Wextra -c $< -o $@
 
 clean:
-		$(MAKE) clean -C $(LIB_PATH)
 		rm -f $(OBJ)
 
 fclean: clean
-		$(MAKE) fclean -C $(LIB_PATH)
 		rm -f $(NAME)
 
 re: fclean all
