@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/12 17:16:25 by pabertha          #+#    #+#              #
-#    Updated: 2023/11/26 00:02:43 by nthoach          ###   ########.fr        #
+#    Created: 0002/05/12 17:00:00 by nthoach           #+#    #+#              #
+#    Updated: 2023/12/02 09:52:00 by nthoach          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ bonus: $(OBJ) $(OBJBONUS)
 		ar rcs $(NAME) $(OBJ) $(OBJBONUS)
 
 %.o: %.c
-		gcc -Wall -Werror -Wextra -c $< -o $@
+		cc -Wall -Werror -Wextra -c $< -o $@
 
 clean:
 		rm -rf $(OBJ) $(OBJBONUS)
