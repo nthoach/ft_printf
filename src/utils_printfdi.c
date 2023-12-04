@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_d_i.c                                       :+:      :+:    :+:   */
+/*   utils_printdi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 10:22:56 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/02 11:59:25 by honguyen         ###   ########.fr       */
+/*   Created: 2023/12/04 19:29:36 by honguyen          #+#    #+#             */
+/*   Updated: 2023/12/04 20:28:44 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,75 +37,82 @@
 	yes "0": (+- )(000-width)(123)
 */
 
-static int	print_di1(t_formats formats, int n, int no_digit, int len_total)
+int	print_di1(t_formats *formats, int n)
 {
 	int	np;
 
 	np = 0;
-	np += print_width(formats, len_total, ' ');
+	np += print_width(formats, formats->len_total, ' ');
+	if (formats->err < 0)
+		return (formats->err);
 	np += print_sign(formats, n);
-	np += print_precision(formats, no_digit);
-	if (!(n == 0 && formats.dot == 1 && formats.precision == 0))
-		ft_putnbr((long)n, &np);
-	return (np);
-}
-
-static int	print_di2(t_formats formats, int n, int len_total)
-{
-	int	np;
-
-	np = 0;
-	np += print_sign(formats, n);
-	np += print_width(formats, len_total, '0');
-	ft_putnbr(n, &np);
-	return (np);
-}
-
-static int	print_di3(t_formats formats, int n, int len_total)
-{
-	int	np;
-
-	np = 0;
-	np += print_width(formats, len_total, ' ');
-	np += print_sign(formats, n);
-	ft_putnbr(n, &np);
-	return (np);
-}
-
-static int	print_di4(t_formats formats, int n, int no_digit, int len_total)
-{
-	int	np;
-
-	np = 0;
-	np += print_sign(formats, n);
-	np += print_precision(formats, no_digit);
-	if (!(n == 0 && formats.dot == 1 && formats.precision == 0))
-		ft_putnbr(n, &np);
-	np += print_width(formats, len_total, ' ');
-	return (np);
-}
-
-int	print_d_i(int n, t_formats formats)
-{
-	int	np;
-	int	no_digit;
-	int	len_total;
-
-	np = 0;
-	no_digit = len_int(n);
-	len_total = totalize_len(n, no_digit, &formats);
-	if (formats.precision == 0 && formats.dot == 1 && n == 0)
-		len_total--;
-	if (formats.minus == 0 && formats.dot == 1)
-		np += print_di1(formats, n, no_digit, len_total);
-	if (formats.minus == 0 && formats.dot == 0)
+	if (formats->err < 0)
+		return (formats->err);
+	np += print_precision(formats, formats->len_digit);
+	if (formats->err < 0)
+		return (formats->err);
+	if (!(n == 0 && formats->dot == 1 && formats->precision == 0))
 	{
-		if (formats.zero == 1)
-			np += print_di2(formats, n, len_total);
-		else
-			np += print_di3(formats, n, len_total);
+		ft_putnbr((long)n, &np, &(formats->err));
+		if (formats->err < 0)
+			return (formats->err);
 	}
-	if (formats.minus == 1)
-		np += print_di4(formats, n, no_digit, len_total);
+	return (np);
+}
+
+int	print_di2(t_formats *formats, int n)
+{
+	int	np;
+
+	np = 0;
+	np += print_sign(formats, n);
+	if (formats->err < 0)
+		return (formats->err);
+	np += print_width(formats, formats->len_total, '0');
+	if (formats->err < 0)
+		return (formats->err);
+	ft_putnbr(n, &np, &(formats->err));
+	if (formats->err < 0)
+		return (formats->err);
+	return (np);
+}
+
+int	print_di3(t_formats *formats, int n)
+{
+	int	np;
+
+	np = 0;
+	np += print_width(formats, formats->len_total, ' ');
+	if (formats->err < 0)
+		return (formats->err);
+	np += print_sign(formats, n);
+	if (formats->err < 0)
+		return (formats->err);
+	ft_putnbr(n, &np, &(formats->err));
+	if (formats->err < 0)
+		return (formats->err);
+	return (np);
+}
+
+int	print_di4(t_formats *formats, int n)
+{
+	int	np;
+
+	np = 0;
+	np += print_sign(formats, n);
+	if (formats->err < 0)
+		return (formats->err);
+	np += print_precision(formats, formats->len_digit);
+	if (formats->err < 0)
+		return (formats->err);
+	if (!(n == 0 && formats->dot == 1 && formats->precision == 0))
+	{
+		ft_putnbr(n, &np, &(formats->err));
+		if (formats->err < 0)
+			return (formats->err);
+	}
+	np += print_width(formats, formats->len_total, ' ');
+	if (formats->err < 0)
+		return (formats->err);
 	return (np);
 }

@@ -6,34 +6,73 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:47 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/02 11:59:38 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:56:53 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_s_blanks(char *s, t_formats formats, int *np)
+static int	print_s_left(t_formats *formats, char *s, int len, int n_blanks)
+{
+	int	np;
+
+	np = 0;
+	np += ft_putxstr(s, len, &(formats->err));
+	if (formats->err < 0)
+		return (-1);
+	np += ft_putnchar(' ', n_blanks, &(formats->err));
+	if (formats->err < 0)
+		return (-1);
+	return (np);
+}
+
+static int	print_s_right(t_formats *formats, char *s, int len, int n_blanks)
+{
+	int	np;
+
+	np = 0;
+	if (formats->zero == 1)
+	{
+		np += ft_putnchar('0', n_blanks, &(formats->err));
+		if (formats->err < 0)
+			return (-1);
+	}
+	else if (formats->zero == 0)
+	{
+		np += ft_putnchar(' ', n_blanks, &(formats->err));
+		if (formats->err < 0)
+			return (-1);
+	}
+	np += ft_putxstr(s, len, &(formats->err));
+	if (formats->err < 0)
+		return (-1);
+	return (np);
+}
+
+static int	print_s_blanks(char *s, t_formats *formats)
 {
 	int	len;
 	int	n_blanks;
+	int	np;
 
+	np = 0;
 	len = (int) ft_strlen(s);
-	if (formats.dot == 1 && formats.precision < len)
-		len = formats.precision;
-	n_blanks = formats.width - len;
-	if (formats.minus == 1)
+	if (formats->dot == 1 && formats->precision < len)
+		len = formats->precision;
+	n_blanks = formats->width - len;
+	if (formats->minus == 1)
 	{
-		*np += ft_putxstr(s, len);
-		*np += ft_putnchar(' ', n_blanks);
+		np += print_s_left(formats, s, len, n_blanks);
+		if (formats->err < 0)
+			return (formats->err);
 	}
 	else
 	{
-		if (formats.zero == 1)
-			*np += ft_putnchar('0', n_blanks);
-		else if (formats.zero == 0)
-			*np += ft_putnchar(' ', n_blanks);
-		*np += ft_putxstr(s, len);
+		np += print_s_right(formats, s, len, n_blanks);
+		if (formats->err < 0)
+			return (formats->err);
 	}
+	return (np);
 }
 
 /* print_s:
@@ -48,7 +87,7 @@ static void	print_s_blanks(char *s, t_formats formats, int *np)
 	7) empty string (*s = '\0') -> print ""
 	8) '\0' in the string, printing s is stopped.
 */
-int	print_s(char *s, t_formats formats)
+int	print_s(char *s, t_formats *formats)
 {
 	int	np;
 	int	flag;
@@ -59,11 +98,16 @@ int	print_s(char *s, t_formats formats)
 	{
 		s = ft_strdup("(null)");
 		if (!s)
-			return (-1);
+		{
+			formats->err = -1;
+			return (formats->err);
+		}
 		flag = 1;
 	}
-	print_s_blanks(s, formats, &np);
+	np += print_s_blanks(s, formats);
 	if (flag == 1)
 		free(s);
+	if (formats->err < 0)
+		return (formats->err);
 	return (np);
 }

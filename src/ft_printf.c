@@ -6,74 +6,11 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:54 by honguyen          #+#    #+#             */
-/*   Updated: 2023/12/02 12:36:38 by honguyen         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:12:18 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-/*
-	print different data-types based on defined formats
-*/
-static int	print_types(va_list ap, t_formats formats, char **s)
-{
-	int	np;
-
-	np = 0;
-	if (**s == 'c')
-		np += print_c(va_arg(ap, int), formats);
-	if (**s == 's')
-		np += print_s(va_arg(ap, char *), formats);
-	if (**s == 'p')
-		np += print_p(va_arg(ap, unsigned long), formats);
-	if (**s == 'd' || **s == 'i')
-		np += print_d_i(va_arg(ap, int), formats);
-	if (**s == 'u')
-		np += print_u(va_arg(ap, unsigned int), formats);
-	if (**s == 'x' || **s == 'X')
-		np += print_x(va_arg(ap, unsigned int), formats, **s);
-	if (**s == '%')
-		np += print_c('%', formats);
-	(*s)++;
-	return (np);
-}
-
-/*
-	Get all possible flags for formats of data types
-	and save it into formats tructures.
-	s --> *s --> **s
-	any change in the pointer *s can be saved and updated in s
-	"-0." & '# +'
-*/
-static void	get_flags(t_formats *formats, char **s)
-{
-	while (ft_strchr("-0# +", **s) != 0)
-	{
-		if (**s == '-')
-			formats->minus = 1;
-		if (**s == '0')
-			formats->zero = 1;
-		if (**s == '#')
-			formats->sharp = 1;
-		if (**s == ' ')
-			formats->space = 1;
-		if (**s == '+')
-			formats->plus = 1;
-		(*s)++;
-	}
-}
-
-/*
-	ascii to integer conversion to get numbers of width or precision
-*/
-static void	get_width_prcn(int *width, char **s)
-{
-	while (**s >= '0' && **s <= '9')
-	{
-		*width = *width * 10 + (**s - '0');
-		(*s)++;
-	}
-}
 
 /*
 	printing the data types after %, need to move va_arg
@@ -85,7 +22,7 @@ static void	get_width_prcn(int *width, char **s)
 	4- if having "." -> get precision
 	5- recognize data type flags and print the relevant data types
 */
-static int	print_options(va_list ap, char **s)
+static int	print_options(va_list ap, char **s, int *err)
 {
 	int			np;
 	t_formats	formats;
@@ -101,7 +38,8 @@ static int	print_options(va_list ap, char **s)
 		get_width_prcn(&(formats.precision), s);
 	}
 	if (ft_strchr("cspdiuxX%", **s) != 0)
-		np = print_types(ap, formats, s);
+		np = print_types(ap, &formats, s);
+	*err = formats.err;
 	return (np);
 }
 
@@ -110,28 +48,46 @@ static int	print_options(va_list ap, char **s)
 	1-Normal string --> rpint
 	2- 
 */
+static int	printf_loop(va_list ap, char **s, int *err)
+{
+	int	np;
+
+	np = 0;
+	if (**s == '%')
+	{
+		(*s)++;
+		np += print_options(ap, s, err);
+		if (*err < 0)
+			return (*err);
+	}
+	else
+	{
+		np += ft_putnchar(**s, 1, err);
+		if (*err < 0)
+			return (*err);
+	}
+	(*s)++;
+	if (*err < 0)
+		return (*err);
+	return (np);
+}
 
 int	ft_printf(const	char *s_in, ...)
 {
 	char	*s;
 	int		np;
 	va_list	ap;
+	int		error;
 
+	error = 0;
 	np = 0;
 	s = (char *) s_in;
 	va_start(ap, s_in);
 	while (*s)
 	{
-		if (*s == '%')
-		{
-			s++;
-			np += print_options(ap, &s);
-		}
-		else
-		{
-			np += ft_putnchar(*s, 1);
-			s++;
-		}
+		np += printf_loop(ap, &s, &error);
+		if (error < 0)
+			return (error);
 	}
 	va_end(ap);
 	return (np);
